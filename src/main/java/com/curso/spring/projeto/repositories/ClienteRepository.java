@@ -14,4 +14,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 			+ " WHERE c.cpf = ?1")
 	Cliente buscaPorCpf(String cpf);
 
+	
+	Boolean existsByCpf(String cpf);
 }

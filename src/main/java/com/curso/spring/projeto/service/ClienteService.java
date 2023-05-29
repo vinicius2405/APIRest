@@ -8,18 +8,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curso.spring.projeto.exceptions.ClienteNaoEncontradoException;
+import com.curso.spring.projeto.exceptions.CpfJaExistenteException;
+import com.curso.spring.projeto.exceptions.ImpossivelExcluirException;
 import com.curso.spring.projeto.models.Cliente;
 import com.curso.spring.projeto.models.DTO.ClienteDTO;
 import com.curso.spring.projeto.repositories.ClienteRepository;
+import com.curso.spring.projeto.repositories.ServicoRespository;
 
 @Service
 public class ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteReposi;
+	
+	@Autowired
+	private ServicoRespository servicoReposi;
 
 	public Cliente inserirCliente(Cliente cliente) {
 		Cliente c = new Cliente(null, cliente.getNome(), cliente.getCpf(), LocalDate.now());
+		if(clienteReposi.existsByCpf(cliente.getCpf())) {
+			throw new CpfJaExistenteException(cliente.getCpf());
+		}
+		
 		return clienteReposi.save(c);
 	}
 
@@ -38,9 +48,14 @@ public class ClienteService {
 	}
 
 	public void deletarCliente(Integer id) {
-		Cliente cliente = new Cliente();
-		cliente = this.buscarCliente(id);
-		clienteReposi.delete(cliente);
+		if(servicoReposi.buscarPorId(id).isEmpty()) {
+			Cliente cliente = new Cliente();
+			cliente = this.buscarCliente(id);
+			clienteReposi.delete(cliente);
+		}else{
+			throw new ImpossivelExcluirException(id);
+		}
+		
 	}
 	
 	public Cliente editarCliente(Integer id, ClienteDTO cliente) {

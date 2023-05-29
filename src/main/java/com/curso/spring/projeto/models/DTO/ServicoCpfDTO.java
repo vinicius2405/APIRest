@@ -1,26 +1,26 @@
 package com.curso.spring.projeto.models.DTO;
 
-public class ServicoDTO {
+public class ServicoCpfDTO {
 
-	private Integer id;
+	private String id;
 	private String descricao;
 	private Double valor;
 	
-	public ServicoDTO(Integer id, String descricao, Double valor) {
+	public ServicoCpfDTO(String id, String descricao, Double valor) {
 		this.id = id;
 		this.descricao = descricao;
 		this.valor = valor;
 	}
 	
-	public ServicoDTO() {
+	public ServicoCpfDTO() {
 		
 	}
 	
 	
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getDescricao() {

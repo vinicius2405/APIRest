@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.curso.spring.projeto.models.Servico;
+import com.curso.spring.projeto.models.DTO.ServicoCpfDTO;
 import com.curso.spring.projeto.models.DTO.ServicoDTO;
 import com.curso.spring.projeto.service.ServicoService;
 
@@ -24,7 +26,7 @@ public class ServicoController {
 	
 	@CrossOrigin
 	@PostMapping("/inserir")
-	public ResponseEntity<Servico> inserirServico(@RequestBody ServicoDTO servico ){
+	public ResponseEntity<Servico> inserirServico(@RequestBody ServicoCpfDTO servico ){
 		return ResponseEntity.ok().body(serviceS.inserirServico(servico));
 	}
 	
@@ -34,5 +36,10 @@ public class ServicoController {
 		return ResponseEntity.ok().body(serviceS.listarServicos());
 	}
 	
+	@CrossOrigin
+	@GetMapping("/listarCpf/{cpf}")
+	public ResponseEntity<List<ServicoDTO>> listarServicoporCPF(@PathVariable String cpf){
+		return ResponseEntity.ok().body(serviceS.listarServicosCPF(cpf));
+	}
 
 }

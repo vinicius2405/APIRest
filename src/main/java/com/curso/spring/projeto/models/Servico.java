@@ -1,6 +1,5 @@
 package com.curso.spring.projeto.models;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
