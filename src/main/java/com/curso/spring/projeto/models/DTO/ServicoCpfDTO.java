@@ -36,6 +36,6 @@ public class ServicoCpfDTO {
 		this.valor = valor;
 	}
 	
-	
+
 //criar outro DTO 
 }
